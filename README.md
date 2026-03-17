@@ -43,7 +43,7 @@
 
 <header>
     <h1>Integración Web - Segundo Parcial</h1>
-    <p>Dominio: [TU_USUARIO].github.io</p>
+    <p>Dominio: [Esau].github.io</p>
 </header>
 
 <nav>
