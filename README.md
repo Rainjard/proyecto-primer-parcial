@@ -1,5 +1,3 @@
-# Mi_primera_pagina_web
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,31 +10,37 @@
             --secondary: #3498db;
             --accent: #e74c3c;
             --light: #ecf0f1;
+            --success: #27ae60;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; color: #333; background-color: #f4f7f6; }
         
         header { background: var(--primary); color: white; padding: 2rem; text-align: center; }
         
-        nav { background: #1a252f; padding: 0.5rem; text-align: center; position: sticky; top: 0; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        nav { background: #1a252f; padding: 0.5rem; text-align: center; position: sticky; top: 0; z-index: 100; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; }
         nav a:hover { color: var(--secondary); }
 
         .container { max-width: 1000px; margin: auto; padding: 20px; }
         
-        section { padding: 40px 0; border-bottom: 1px solid #ddd; }
+        section { padding: 40px 20px; border-bottom: 1px solid #ddd; background: white; margin-bottom: 20px; border-radius: 8px; }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         
         .card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .card h3 { color: var(--secondary); border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
 
-        .mantenimiento-img { width: 100%; height: 200px; background: #ccc; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border-radius: 5px; overflow: hidden; }
-        .mantenimiento-img img { width: 100%; height: 100%; object-fit: cover; }
+        /* Estilos Login y Sesiones */
+        #status-sesion { padding: 10px; background: var(--light); border-radius: 5px; margin-top: 10px; font-weight: bold; }
+        .btn-login { background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .lista-sesiones { list-style: none; padding: 0; }
+        .lista-sesiones li { padding: 5px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+        /* Estilos Mantenimiento */
+        .selector-errores { width: 100%; padding: 12px; border-radius: 5px; border: 1px solid var(--secondary); margin-bottom: 15px; }
+        #solucion-box { padding: 15px; background: #e8f4fd; border-left: 5px solid var(--secondary); display: none; }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 20px; margin-top: 40px; }
-        
-        .badge { background: var(--accent); color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -44,41 +48,146 @@
 <header>
     <h1>Integración Web - Segundo Parcial</h1>
     <p>Dominio: [Esau].github.io</p>
+    <div id="user-display" style="color: var(--secondary); font-weight: bold;"></div>
 </header>
 
 <nav>
     <a href="#inicio">Inicio</a>
     <a href="#sesiones">Sesiones</a>
     <a href="#mantenimiento">Mantenimiento</a>
+    <a onclick="toggleLogin()" id="nav-login">Iniciar Sesión</a>
 </nav>
 
 <div class="container">
     
     <section id="inicio">
         <h2>Bienvenida</h2>
-        <p>Este sitio web representa la integración de los conocimientos adquiridos durante el segundo cuatrimestre, fusionando el diseño web con los servicios de soporte técnico informático.</p>
+        <p>Este sitio web representa la integración de los conocimientos adquiridos durante el segundo cuatrimestre.</p>
+        <div id="login-area">
+            <button class="btn-login" onclick="login()">Simular Login (Invitado)</button>
+        </div>
     </section>
 
     <section id="sesiones">
-        <h2>Sesiones Desarrolladas</h2>
+        <h2>Control de Accesos</h2>
         <div class="grid">
             <div class="card">
-                <h3>Sesión 1: Maquetación</h3>
-                <p>Definición de estructura semántica y boceto inicial del sitio.</p>
+                <h3>Sesiones Recientes</h3>
+                <p>Usuarios que han ingresado al sistema:</p>
+                <ul id="registro-sesiones" class="lista-sesiones">
+                    <li><em>No hay sesiones registradas hoy.</em></li>
+                </ul>
             </div>
             <div class="card">
-                <h3>Sesión 2: Estilos CSS</h3>
-                <p>Implementación de colores, tipografías y diseño responsivo.</p>
-            </div>
-            <div class="card">
-                <h3>Sesión 3: Hosting y Dominio</h3>
-                <p>Configuración del entorno de producción y despliegue en GitHub Pages.</p>
+                <h3>Estado del Sistema</h3>
+                <div id="status-sesion">Estado: Desconectado</div>
             </div>
         </div>
     </section>
 
     <section id="mantenimiento">
-        <h2>Servicios de Mantenimiento Preventivo</h2>
-        <p>Protocolos aplicados en el Taller de Informática para la optimización de equipos.</p>
+        <h2>Diagnóstico de Errores Comunes</h2>
+        <p>Selecciona un problema técnico para ver la solución recomendada:</p>
         
-        <div class="grid">
+        <select id="errorSelect" class="selector-errores" onchange="mostrarSolucion()">
+            <option value="">-- Selecciona un error --</option>
+            <option value="lento">El equipo está muy lento</option>
+            <option value="pantalla">Pantallazo azul (BSOD)</option>
+            <option value="ruido">Ruido excesivo en el ventilador</option>
+            <option value="wifi">No conecta a Internet</option>
+        </select>
+
+        <div id="solucion-box">
+            <h4 id="error-titulo"></h4>
+            <p id="error-desc"></p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 Soporte Técnico Esau - Trabajo Escolar</p>
+</footer>
+
+<script>
+    // --- LÓGICA DE SESIONES ---
+    let sesiones = [];
+
+    function login() {
+        const nombre = prompt("Ingresa tu nombre de usuario:");
+        if (nombre) {
+            const ahora = new Date();
+            const tiempo = ahora.toLocaleTimeString();
+            
+            // Guardar sesión
+            sesiones.push(`${nombre} - ${tiempo}`);
+            
+            // Actualizar Interfaz
+            document.getElementById('status-sesion').innerText = "Estado: Conectado como " + nombre;
+            document.getElementById('status-sesion').style.color = "var(--success)";
+            document.getElementById('user-display').innerText = "Bienvenido, " + nombre;
+            document.getElementById('nav-login').innerText = "Cerrar Sesión";
+            document.getElementById('nav-login').onclick = logout;
+            
+            actualizarListaSesiones();
+        }
+    }
+
+    function logout() {
+        document.getElementById('status-sesion').innerText = "Estado: Desconectado";
+        document.getElementById('status-sesion').style.color = "black";
+        document.getElementById('user-display').innerText = "";
+        document.getElementById('nav-login').innerText = "Iniciar Sesión";
+        document.getElementById('nav-login').onclick = login;
+        alert("Sesión cerrada correctamente.");
+    }
+
+    function actualizarListaSesiones() {
+        const lista = document.getElementById('registro-sesiones');
+        lista.innerHTML = "";
+        sesiones.forEach(s => {
+            const li = document.createElement('li');
+            li.innerText = "✅ Session iniciada por: " + s;
+            lista.appendChild(li);
+        });
+    }
+
+    // --- LÓGICA DE MANTENIMIENTO ---
+    function mostrarSolucion() {
+        const select = document.getElementById('errorSelect');
+        const box = document.getElementById('solucion-box');
+        const titulo = document.getElementById('error-titulo');
+        const desc = document.getElementById('error-desc');
+
+        const soluciones = {
+            "lento": {
+                t: "Equipo Lento",
+                d: "Sugerencia: Limpiar archivos temporales, desfragmentar disco (si es HDD) y revisar aplicaciones de inicio en el Administrador de Tareas."
+            },
+            "pantalla": {
+                t: "Pantallazo Azul",
+                d: "Sugerencia: Verificar drivers recientemente instalados o fallas en los módulos de memoria RAM. Realizar un diagnóstico de hardware."
+            },
+            "ruido": {
+                t: "Ruido en Ventilador",
+                d: "Sugerencia: Realizar limpieza física con aire comprimido y aplicar pasta térmica nueva al procesador."
+            },
+            "wifi": {
+                t: "Fallo de Conexión",
+                d: "Sugerencia: Reiniciar el adaptador de red, verificar el interruptor físico de Wi-Fi o reinstalar el controlador de red."
+            }
+        };
+
+        if (select.value !== "") {
+            const info = soluciones[select.value];
+            titulo.innerText = info.t;
+            desc.innerText = info.d;
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
