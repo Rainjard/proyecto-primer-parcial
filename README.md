@@ -62,7 +62,7 @@
     
     <section id="inicio">
         <h2>Bienvenida</h2>
-        <p>Este sitio web representa la integración de los conocimientos adquiridos durante el segundo cuatrimestre.</p>
+        <p>Avance proyecto segundo proyecto parcial.</p>
         <div id="login-area">
             <button class="btn-login" onclick="login()">Simular Login (Invitado)</button>
         </div>
@@ -162,15 +162,15 @@
         const soluciones = {
             "lento": {
                 t: "Equipo Lento",
-                d: "Sugerencia: Limpiar archivos temporales, desfragmentar disco (si es HDD) y revisar aplicaciones de inicio en el Administrador de Tareas."
+                d: "Cierra los demas procesos."
             },
             "pantalla": {
-                t: "Pantallazo Azul",
-                d: "Sugerencia: Verificar drivers recientemente instalados o fallas en los módulos de memoria RAM. Realizar un diagnóstico de hardware."
+                t: "ME sale error 454",
+                d: "Reinicia la pagina."
             },
-            "ruido": {
-                t: "Ruido en Ventilador",
-                d: "Sugerencia: Realizar limpieza física con aire comprimido y aplicar pasta térmica nueva al procesador."
+            "secion": {
+                t: "problemas con el inico de secion",
+                d: "talves pusiste el usuario incorrecto."
             },
             "wifi": {
                 t: "Fallo de Conexión",
