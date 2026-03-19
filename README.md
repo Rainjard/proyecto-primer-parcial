@@ -92,8 +92,8 @@
         <select id="errorSelect" class="selector-errores" onchange="mostrarSolucion()">
             <option value="">-- Selecciona un error --</option>
             <option value="lento">El equipo está muy lento</option>
-            <option value="pantalla">Pantallazo azul (BSOD)</option>
-            <option value="ruido">Ruido excesivo en el ventilador</option>
+            <option value="pantalla">Pantallazo (BSOD)</option>
+            <option value="usuario">se puso mal el usuario</option>
             <option value="wifi">No conecta a Internet</option>
         </select>
 
@@ -106,7 +106,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2024 Soporte Técnico Esau - Trabajo Escolar</p>
+    <p>&copy; 2026 Paseme profe Esau - Trabajo Parcial</p>
 </footer>
 
 <script>
