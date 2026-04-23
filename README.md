@@ -47,13 +47,13 @@
 
 <header>
     <h1>Integración Web - Segundo Parcial</h1>
-    <p>Dominio: [Esau].github.io</p>
+    <p>Dominio: yo </p>
     <div id="user-display" style="color: var(--secondary); font-weight: bold;"></div>
 </header>
 
 <nav>
     <a href="#inicio">Inicio</a>
-    <a href="#sesiones">Sesiones</a>
+    <a href="#caracteristicas">Características</a>
     <a href="#mantenimiento">Mantenimiento</a>
     <a onclick="toggleLogin()" id="nav-login">Iniciar Sesión</a>
 </nav>
@@ -62,9 +62,27 @@
     
     <section id="inicio">
         <h2>Bienvenida</h2>
-        <p>Avance proyecto segundo proyecto parcial.</p>
+        <p>Ordinario</p>
         <div id="login-area">
             <button class="btn-login" onclick="login()">Simular Login (Invitado)</button>
+        </div>
+    </section>
+
+    <section id="caracteristicas">
+        <h2>Características del Sistema</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Gestión de Usuarios</h3>
+                <p>Permite el registro simulado de sesiones y control de acceso en tiempo real para usuarios invitados.</p>
+            </div>
+            <div class="card">
+                <h3>Diagnóstico Inteligente</h3>
+                <p>Módulo de mantenimiento interactivo que ofrece soluciones rápidas a problemas técnicos comunes.</p>
+            </div>
+            <div class="card">
+                <h3>Diseño Responsivo</h3>
+                <p>Interfaz adaptativa construida con CSS Grid para una visualización óptima en móviles y escritorio.</p>
+            </div>
         </div>
     </section>
 
@@ -168,7 +186,7 @@
                 t: "ME sale error 454",
                 d: "Reinicia la pagina."
             },
-            "secion": {
+            "usuario": {
                 t: "problemas con el inico de secion",
                 d: "talves pusiste el usuario incorrecto."
             },
